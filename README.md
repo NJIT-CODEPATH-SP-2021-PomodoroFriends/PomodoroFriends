@@ -75,7 +75,7 @@ Optional:
 * Settings -> Profile Image to be modified.
 
 ## Wireframes
-<img src="https://i.imgur.com/9CrjH1K.jpg" width=800><br>
+<img src="https://github.com/NJIT-CODEPATH-SP-2021-PomodoroFriends/PomodoroFriends/blob/main/Images/wireframe.png" width=800><br>
 
 ### [BONUS] Digital Wireframes & Mockups
 N/A
