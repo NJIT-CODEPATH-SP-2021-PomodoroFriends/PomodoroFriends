@@ -82,3 +82,31 @@ N/A
 
 ### [BONUS] Interactive Prototype
 N/A
+
+## Schema
+
+### Models
+#### Post
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user post (default field) |
+   | author        | Pointer to User| timer author |
+   | caption       | String   | timer caption/description by author |
+   | createdAt     | DateTime | date when timer is created (default field) |
+   | timerLengthA     | int | length of time in seconds for 'A' period of Pomodoro Timer |
+   | timerLengthB     | int | length of time in seconds for 'B' period of Pomodoro Timer |
+   | period     | int | how many times to repeat the AB pattern |
+   | active     | boolean | indicates whether or not this pomodoro is in use |
+   | startedAt     | DateTime | date when timer is activated. used to calclate current period and end of timer. |
+
+
+
+### Networking
+#### List of network requests by screen
+   - Home Feed Screen
+      - (Read/GET) Query all timers from global authors
+   - Create Post Screen
+      - (Create/POST) Create a new pomodoro post
+   - Profile Screen
+      - (Read/GET) Query logged in user pomodoro timers
+      - (Update/PUT) Update user profile image
