@@ -3,12 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.AddFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TimePicker
-        android:id="@+id/datePicker1"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnActivityTime"
+        android:layout_width="329dp"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner" />
+        android:layout_gravity="start"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/red_500"
+        android:enabled="true"
+        android:text="Activity"
+         />
+
+    <Button
+        android:id="@+id/btnBreakTime"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/green_400"
+        android:enabled="true"
+        android:text="Break" />
 </FrameLayout>
