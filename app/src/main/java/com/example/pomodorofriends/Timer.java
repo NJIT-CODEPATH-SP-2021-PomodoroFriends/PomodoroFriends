@@ -1,12 +1,16 @@
 package com.example.pomodorofriends;
 
-public class Timer {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
+@ParseClassName("Timer")
+public class Timer extends ParseObject {
     private String name;
     private int lengthA;
     private int lengthB;
     private int repititions;
 
-
+    public Timer(){}
     public Timer(String name, int lengthA, int lengthB, int repititions) {
         this.name = name;
         this.lengthA = lengthA;
