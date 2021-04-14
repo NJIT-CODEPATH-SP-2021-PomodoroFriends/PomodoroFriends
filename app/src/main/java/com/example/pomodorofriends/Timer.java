@@ -1,52 +1,49 @@
 package com.example.pomodorofriends;
 
 import com.parse.ParseClassName;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("Timer")
 public class Timer extends ParseObject {
-    private String name;
-    private int lengthA;
-    private int lengthB;
-    private int repititions;
+    public static final String KEY_CAPTION = "caption";
+    public static final String KEY_PERIOD = "period";
+    public static final String KEY_ACTIVITY = "activityTimer";
+    public static final String KEY_BREAK = "breakTimer";
+    public static final String KEY_USER = "user";
+    public static final String KEY_CREATED_AT = "createdAt";
 
-    public Timer(){}
-    public Timer(String name, int lengthA, int lengthB, int repititions) {
-        this.name = name;
-        this.lengthA = lengthA;
-        this.lengthB = lengthB;
-        this.repititions = repititions;
+    public String getCaption() {
+        return getString(KEY_CAPTION);
+    }
+    public void setCaption(String caption) { put(KEY_CAPTION, caption); }
+
+    public int getPeriod() {
+        return getInt(KEY_PERIOD);
+    }
+    public void setPeriod(int period) {
+        put(KEY_PERIOD, period);
     }
 
-    public String getName() {
-        return name;
+    public int getActivityTimer() {
+        return getInt(KEY_ACTIVITY);
+    }
+    public void setActivityTimer(int activityTimer) {
+        put(KEY_ACTIVITY, activityTimer);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getBreakTimer() {
+        return getInt(KEY_BREAK);
+    }
+    public void setBreakTimer(int breakTimer) {
+        put(KEY_BREAK, breakTimer);
     }
 
-    public int getLengthA() {
-        return lengthA;
+    public ParseUser getUser() {
+        return getParseUser(KEY_USER);
     }
-
-    public void setLengthA(int lengthA) {
-        this.lengthA = lengthA;
-    }
-
-    public int getLengthB() {
-        return lengthB;
-    }
-
-    public void setLengthB(int lengthB) {
-        this.lengthB = lengthB;
-    }
-
-    public int getRepititions() {
-        return repititions;
-    }
-
-    public void setRepititions(int repititions) {
-        this.repititions = repititions;
+    public void setUser(ParseUser user) {
+        put(KEY_USER, user);
     }
 }
