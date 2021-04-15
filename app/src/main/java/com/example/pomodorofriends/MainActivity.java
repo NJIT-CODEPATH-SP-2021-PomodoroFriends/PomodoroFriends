@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
                 switch (item.getItemId()) {
-                    case R.id.action_add:
+                    case R.id.action_profile:
                         fragment = addFragment;
                         break;
                     default:
@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.action_add:
-
+                fragmentManager.beginTransaction().replace(R.id.flContainer, addFragment).commit();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
