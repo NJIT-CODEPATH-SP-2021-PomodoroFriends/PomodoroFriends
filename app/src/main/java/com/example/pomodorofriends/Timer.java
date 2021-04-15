@@ -11,7 +11,7 @@ public class Timer extends ParseObject {
     public static final String KEY_PERIOD = "period";
     public static final String KEY_ACTIVITY = "activityTimer";
     public static final String KEY_BREAK = "breakTimer";
-    public static final String KEY_USER = "user";
+    public static final String KEY_USER = "author";
     public static final String KEY_CREATED_AT = "createdAt";
 
     public String getCaption() {

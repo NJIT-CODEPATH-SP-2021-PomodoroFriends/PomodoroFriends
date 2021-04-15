@@ -17,7 +17,7 @@
         tools:context=".fragments.AddFragment">
 
         <EditText
-            android:id="@+id/caption"
+            android:id="@+id/etCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/period"
+            android:id="@+id/etPeriod"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -41,7 +41,7 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caption" />
+            app:layout_constraintTop_toBottomOf="@+id/etCaption" />
 
         <Button
             android:id="@+id/btnActivityTime"
@@ -58,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caption"
+            app:layout_constraintTop_toBottomOf="@+id/etCaption"
             app:layout_constraintVertical_bias="0.095" />
 
         <Button
@@ -76,7 +76,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caption"
+            app:layout_constraintTop_toBottomOf="@+id/etCaption"
             app:layout_constraintVertical_bias="0.232" />
 
         <Button
@@ -95,9 +95,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.812"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/caption"
+            app:layout_constraintTop_toBottomOf="@+id/etCaption"
             app:layout_constraintVertical_bias="0.706" />
 
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="64dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/etCaption"
+            app:layout_constraintStart_toStartOf="@+id/etCaption"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
