@@ -25,17 +25,17 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 
 **Required Must-have Stories**
 
-* User logs in to access previously defined Pomodoro Timers
-* User can create new Pomodoro Timers based on "productivity time", "break time", and number of repetitions.
-* Users can view a global feed of all currently pomodoro timers in use, the timer's name, and a user graphic.
-* User can manage a stored list of 5 timers.
+- [x] User logs in to access previously defined Pomodoro Timers
+- [x] User can create new Pomodoro Timers based on "productivity time", "break time", and number of repetitions.
+- [ ] Users can view a global feed of all currently pomodoro timers in use, the timer's name, and a user graphic.
+- [ ] User can manage a stored list of 5 timers.
 
 **Optional Nice-to-have Stories**
 
-* A customized feed of pomodoro friends more specific than the global feed.
-* The ability to sync with another user's pomodoro timer
-* Friendslist
-* Implement music or sounds into the pomodoro timer.
+- [ ] A customized feed of pomodoro friends more specific than the global feed.
+- [ ] The ability to sync with another user's pomodoro timer
+- [ ] Friendslist
+- [ ] Implement music or sounds into the pomodoro timer.
 
 ### 2. Screen Archetypes
 
