@@ -37,6 +37,10 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 - [ ] Friendslist
 - [ ] Implement music or sounds into the pomodoro timer.
 
+**App Walkthrough UNIT 10**
+
+![WALKTHROUGH](https://media.giphy.com/media/0CwLLbEkrmTkX2JcMK/giphy.gif)
+
 ### 2. Screen Archetypes
 
 * Login

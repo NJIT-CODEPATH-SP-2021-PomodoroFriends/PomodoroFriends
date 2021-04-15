@@ -140,7 +140,6 @@ public class AddFragment extends Fragment {
 
     }
 
-
     private void saveTimer(String caption, int period, int breakTimer, int activityTimer, ParseUser currentUser) {
         Timer timer = new Timer();
         timer.setCaption(caption);
@@ -159,7 +158,7 @@ public class AddFragment extends Fragment {
                 }
                 Log.i(TAG, "Post saved successfuly");
                 etCaption.setText("");
-                etPeriod.setText("1");
+                etPeriod.setText("");
             }
         });
 
