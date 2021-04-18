@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.pomodorofriends.fragments.AddFragment;
+import com.example.pomodorofriends.fragments.BasketFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fragmentManager = getSupportFragmentManager();
     // define your fragments here
     final Fragment addFragment = new AddFragment();
+    final Fragment basketFragment = new BasketFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
                 switch (item.getItemId()) {
-                    case R.id.action_profile:
-                        fragment = addFragment;
+                    case R.id.action_basket:
+                        fragment = basketFragment;
                         break;
                     default:
-                        fragment = addFragment;
+                        fragment = basketFragment;
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        //bottomNavigationView.setSelectedItemId(R.id.action_home);
+        bottomNavigationView.setSelectedItemId(R.id.action_basket);
     }
 
     @Override

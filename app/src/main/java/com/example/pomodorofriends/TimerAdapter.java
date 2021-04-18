@@ -77,6 +77,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
         public void bind(Timer timer) {
             tvCaption.setText(timer.getCaption());
             tvUsername.setText(timer.getUser().getUsername());
+            chPeriod.setText(timer.getPeriod()+" reps");
 
         }
     }
