@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pomodorofriends.Timer;
+import com.google.android.material.chip.Chip;
 import com.parse.ParseFile;
 
 import java.util.List;
@@ -57,13 +58,25 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        TextView tvCaption;
+        TextView tvUsername;
+        Chip chPeriod;
+        Chip chActivity;
+        Chip chBreak;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
+            tvCaption = itemView.findViewById(R.id.tvCaption);
+            tvUsername = itemView.findViewById(R.id.tvUsername);
+            chPeriod = itemView.findViewById(R.id.chPeriod);
+            chActivity = itemView.findViewById(R.id.chActivity);
+            chBreak = itemView.findViewById(R.id.chBreak);
         }
 
         public void bind(Timer timer) {
+            tvCaption.setText(timer.getCaption());
+            tvUsername.setText(timer.getUser().getUsername());
 
         }
     }
