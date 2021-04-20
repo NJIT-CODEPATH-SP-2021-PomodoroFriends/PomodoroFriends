@@ -27,7 +27,7 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 
 - [x] User logs in to access previously defined Pomodoro Timers
 - [x] User can create new Pomodoro Timers based on "productivity time", "break time", and number of repetitions.
-- [ ] Users can view a global feed of all currently pomodoro timers in use, the timer's name, and a user graphic.
+- [x] Users can view a global feed of all currently pomodoro timers in use, the timer's name, and a user graphic.
 - [ ] User can manage a stored list of 5 timers.
 
 **Optional Nice-to-have Stories**
