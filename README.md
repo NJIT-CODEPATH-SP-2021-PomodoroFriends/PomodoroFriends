@@ -39,7 +39,7 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 
 **App Walkthrough UNIT 10**
 
-<img src="https://github.com/NJIT-CODEPATH-SP-2021-PomodoroFriends/PomodoroFriends/blob/main/Images/demo.gif" width=800><br>
+<img src="https://github.com/NJIT-CODEPATH-SP-2021-PomodoroFriends/PomodoroFriends/blob/main/Images/demo.gif" width=200><br>
 
 ### 2. Screen Archetypes
 
