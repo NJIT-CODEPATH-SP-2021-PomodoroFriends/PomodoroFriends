@@ -110,7 +110,7 @@ public class AddFragment extends Fragment {
             public void onClick(View v) {
                 String caption = etCaption.getText().toString();
                 if(caption.isEmpty()){
-                    Toast.makeText(getContext(), "Caprion cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Caption cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 int period = Integer.parseInt(etPeriod.getText().toString());
@@ -152,15 +152,19 @@ public class AddFragment extends Fragment {
             public void done(ParseException e) {
 
                 loadingProgressBar.setVisibility(View.INVISIBLE);
-                if(e != null){
+                if (e != null) {
                     Log.e(TAG, "Error while saving", e);
                     Toast.makeText(getContext(), "Error while saving", Toast.LENGTH_SHORT).show();
                 }
                 Log.i(TAG, "Post saved successfuly");
+                Toast.makeText(getContext(), "Timer saved!", Toast.LENGTH_SHORT).show();
+
                 etCaption.setText("");
                 etPeriod.setText("");
             }
         });
 
+        //Return to basket
+        //this.getActivity().onBackPressed();
     }
 }
