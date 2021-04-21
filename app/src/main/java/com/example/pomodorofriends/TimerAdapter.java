@@ -4,15 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pomodorofriends.Timer;
 import com.google.android.material.chip.Chip;
-import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -60,7 +57,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
 
         TextView tvCaption;
         TextView tvUsername;
-        Chip chPeriod;
+        TextView tvPeriod;
         Chip chActivity;
         Chip chBreak;
 
@@ -69,7 +66,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
 
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvUsername = itemView.findViewById(R.id.tvUsername);
-            chPeriod = itemView.findViewById(R.id.chPeriod);
+            tvPeriod = itemView.findViewById(R.id.tvPeriod);
             chActivity = itemView.findViewById(R.id.chActivity);
             chBreak = itemView.findViewById(R.id.chBreak);
         }
@@ -77,8 +74,9 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
         public void bind(Timer timer) {
             tvCaption.setText(timer.getCaption());
             tvUsername.setText(timer.getUser().getUsername());
-            chPeriod.setText(timer.getPeriod()+" reps");
-
+            tvPeriod.setText(timer.getPeriod()+" reps");
+            chActivity.setText(Timer.format(timer.getActivityTimer()));
+            chBreak.setText(Timer.format(timer.getBreakTimer()));
         }
     }
 }
