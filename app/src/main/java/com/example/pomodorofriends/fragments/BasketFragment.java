@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.pomodorofriends.R;
 import com.example.pomodorofriends.Timer;
@@ -25,12 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasketFragment extends Fragment {
-    private SwipeRefreshLayout swipeContainer;
-
     private static final String TAG = "BasketFragment";
     private RecyclerView rvPosts;
     protected List<Timer> allTimers;
     protected TimerAdapter adapter;
+    private SwipeRefreshLayout swipeContainer;
 
     public BasketFragment() {
         // Required empty public constructor
@@ -40,7 +40,11 @@ public class BasketFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basket, container, false);
+        View view = inflater.inflate(R.layout.fragment_basket, container, false);
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+
+        return view;
     }
 
     @Override
@@ -52,9 +56,15 @@ public class BasketFragment extends Fragment {
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-
         queryPosts();
 
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                queryPosts();
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }
 
     protected void queryPosts(){
@@ -80,5 +90,4 @@ public class BasketFragment extends Fragment {
             }
         });
     }
-
 }
