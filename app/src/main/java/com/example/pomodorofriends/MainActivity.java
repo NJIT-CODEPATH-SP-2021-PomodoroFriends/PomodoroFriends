@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.example.pomodorofriends.fragments.AddFragment;
 import com.example.pomodorofriends.fragments.BasketFragment;
+import com.example.pomodorofriends.fragments.ProfileFragment;
+import com.example.pomodorofriends.fragments.TimerActionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     // define your fragments here
     final Fragment addFragment = new AddFragment();
     final Fragment basketFragment = new BasketFragment();
+    final Fragment profileFragment = new ProfileFragment();
+    final Fragment timerFragment = new TimerActionFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_basket:
                         fragment = basketFragment;
+                        break;
+
+                    case R.id.action_profile:
+                        fragment = profileFragment;
+                        break;
+                    case R.id.action_current:
+                        fragment = timerFragment;
                         break;
                     default:
                         fragment = basketFragment;
