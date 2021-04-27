@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasketFragment extends Fragment {
+    private SwipeRefreshLayout swipeContainer;
 
     private static final String TAG = "BasketFragment";
     private RecyclerView rvPosts;
@@ -79,6 +80,5 @@ public class BasketFragment extends Fragment {
             }
         });
     }
-
 
 }
