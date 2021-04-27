@@ -29,6 +29,8 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 - [x] User can create new Pomodoro Timers based on "productivity time", "break time", and number of repetitions.
 - [x] Users can view a global feed of all currently pomodoro timers in use, the timer's name, and a user graphic.
 - [ ] User can manage a stored list of 5 timers.
+- [x] User can swipe to refresh feed.
+
 
 **Optional Nice-to-have Stories**
 
@@ -44,6 +46,9 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 **App Walkthrough UNIT 11**
 
 ![WALKTHROUGH2](https://media.giphy.com/media/6a4ftYeuztPAjihca8/giphy.gif)
+
+**App Walkthrough UNIT 12**
+
 
 ### 2. Screen Archetypes
 

@@ -71,6 +71,8 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        this.userText = ;
+
     }
 
     @Override
@@ -81,6 +83,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getUser() {
-
+        //
     }
 }
