@@ -19,6 +19,13 @@ import org.w3c.dom.Text;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//TODO: REPLACE username
+    //GIVE THANKYOu TO USER CREDITS AND SPECIAL THANKS TO CODEPATH
+    //AVATAR FROM BOLD LETTER OF USERNAME
+
+
+
 public class ProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
