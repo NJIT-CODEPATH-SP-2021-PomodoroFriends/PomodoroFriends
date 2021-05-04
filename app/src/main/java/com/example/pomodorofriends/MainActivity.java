@@ -40,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putString("msg", msg);
         timerFragment.setArguments(args);
+
+        // Allow switching between fragments while keeping them alive
+        fragmentManager.beginTransaction()
+                .add(R.id.flContainer, basketFragment)
+                .add(R.id.flContainer, profileFragment)
+                .add(R.id.flContainer, timerFragment)
+                .hide(profileFragment)
+                .hide(timerFragment)
+                .commit();
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -60,7 +70,26 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                // Switch active fragment without killing previous one
+                if (fragment == basketFragment) {
+                    fragmentManager.beginTransaction()
+                            .hide(profileFragment)
+                            .hide(timerFragment)
+                            .show(basketFragment)
+                            .commit();
+                } else if (fragment == profileFragment) {
+                    fragmentManager.beginTransaction()
+                            .hide(basketFragment)
+                            .hide(timerFragment)
+                            .show(profileFragment)
+                            .commit();
+                } else if (fragment == timerFragment) {
+                    fragmentManager.beginTransaction()
+                            .hide(basketFragment)
+                            .hide(profileFragment)
+                            .show(timerFragment)
+                            .commit();
+                }
                 return true;
             }
 
