@@ -1,14 +1,25 @@
 package com.example.pomodorofriends.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.pomodorofriends.R;
+import com.example.pomodorofriends.Timer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,33 +28,27 @@ import com.example.pomodorofriends.R;
  */
 public class TimerActionFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "TimerActionFragment";
+    private TextView tvTimer;
+    private TextView tvTimerCaption;
+    private TextView tvTimerPeriod;
+    private FrameLayout flTimerAction;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int activityTime;
+    private int period;
+    private int current;
+    private String caption;
+    private CountDownTimer countDownActivity;
+    private CountDownTimer countDownBreak;
 
     public TimerActionFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TimerActionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static TimerActionFragment newInstance(String param1, String param2) {
         TimerActionFragment fragment = new TimerActionFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +56,86 @@ public class TimerActionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        activityTime = 10*1000;
+        caption = "Finish Project!!";
+        period = 4;
+        current = period;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_timer_action, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //String msg = getArguments().getString("msg",null);
+        //Log.i(TAG, msg);
+
+
+        tvTimer = view.findViewById(R.id.tvTimer);
+        tvTimerCaption = view.findViewById(R.id.tvTimerCaption);
+        tvTimerPeriod = view.findViewById(R.id.tvTimerPeriod);
+        flTimerAction = view.findViewById(R.id.flTimerAction);
+
+        startActivity();
+
+    }
+    private void startActivity(){
+        tvTimerCaption.setText(caption);
+        tvTimerPeriod.setText(current+"/"+period);
+        Drawable flDrawable = flTimerAction.getBackground();
+        flDrawable = DrawableCompat.wrap(flDrawable);
+        //the color is a direct color int and not a color resource
+        DrawableCompat.setTint(flDrawable, getResources().getColor(R.color.red_500));
+        flTimerAction.setBackground(flDrawable);
+        countDownActivity = new CountDownTimer(activityTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String activityTimeFormat = Timer.format(millisUntilFinished/1000);
+                //Log.i(TAG, activityTimeFormat);
+                tvTimer.setText(activityTimeFormat);
+            }
+
+            @Override
+            public void onFinish() {
+                Log.i(TAG, "Finished timer");
+                startBreak();
+            }
+        };
+        countDownActivity.start();
+    }
+
+
+    private void startBreak(){
+        tvTimerCaption.setText("Take a Break!");
+        Drawable flDrawable = flTimerAction.getBackground();
+        flDrawable = DrawableCompat.wrap(flDrawable);
+        //the color is a direct color int and not a color resource
+        DrawableCompat.setTint(flDrawable, getResources().getColor(R.color.green_400));
+        flTimerAction.setBackground(flDrawable);
+
+        countDownBreak = new CountDownTimer(activityTime, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String activityTimeFormat = Timer.format(millisUntilFinished/1000);
+                //Log.i(TAG, activityTimeFormat);
+                tvTimer.setText(activityTimeFormat);
+            }
+
+            @Override
+            public void onFinish() {
+                Log.i(TAG, "Finished timer");
+                current--;
+                if(current == 0)
+                    return;
+                startActivity();
+            }
+        };
+        countDownBreak.start();
+    }
+
 }
