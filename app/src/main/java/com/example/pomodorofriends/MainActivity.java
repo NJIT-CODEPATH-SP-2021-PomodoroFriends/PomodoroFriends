@@ -46,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.flContainer, basketFragment)
                 .add(R.id.flContainer, profileFragment)
                 .add(R.id.flContainer, timerFragment)
+                .add(R.id.flContainer, addFragment)
                 .hide(profileFragment)
                 .hide(timerFragment)
+                .hide(addFragment)
                 .commit();
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -75,18 +77,21 @@ public class MainActivity extends AppCompatActivity {
                     fragmentManager.beginTransaction()
                             .hide(profileFragment)
                             .hide(timerFragment)
+                            .hide(addFragment)
                             .show(basketFragment)
                             .commit();
                 } else if (fragment == profileFragment) {
                     fragmentManager.beginTransaction()
                             .hide(basketFragment)
                             .hide(timerFragment)
+                            .hide(addFragment)
                             .show(profileFragment)
                             .commit();
                 } else if (fragment == timerFragment) {
                     fragmentManager.beginTransaction()
                             .hide(basketFragment)
                             .hide(profileFragment)
+                            .hide(addFragment)
                             .show(timerFragment)
                             .commit();
                 }
@@ -112,7 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.action_add:
-                fragmentManager.beginTransaction().replace(R.id.flContainer, addFragment).commit();
+                fragmentManager.beginTransaction()
+                        .hide(profileFragment)
+                        .hide(timerFragment)
+                        .hide(basketFragment)
+                        .show(addFragment)
+                        .commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
