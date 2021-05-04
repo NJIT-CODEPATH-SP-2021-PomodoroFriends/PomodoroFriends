@@ -29,11 +29,17 @@ public class MainActivity extends AppCompatActivity {
     final Fragment profileFragment = new ProfileFragment();
     final Fragment timerFragment = new TimerActionFragment();
 
+    private Timer selectedTimer;
+    private String msg = "From main to you";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Bundle args = new Bundle();
+        args.putString("msg", msg);
+        timerFragment.setArguments(args);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -43,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_basket:
                         fragment = basketFragment;
                         break;
-
                     case R.id.action_profile:
                         fragment = profileFragment;
                         break;
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = basketFragment;
                         break;
                 }
+
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }

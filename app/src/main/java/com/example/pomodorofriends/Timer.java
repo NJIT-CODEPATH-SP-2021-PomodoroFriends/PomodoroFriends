@@ -47,10 +47,10 @@ public class Timer extends ParseObject {
         put(KEY_USER, user);
     }
 
-    public static String format(int seconds){
-        int hours = seconds / 3600;
-        int minutes = (seconds % 3600) / 60;
-        int secs = seconds % 60;
+    public static String format(long seconds){
+        long hours = seconds / 3600;
+        long minutes = (seconds % 3600) / 60;
+        long secs = seconds % 60;
         String time = String.format("%02d:%02d:%02d", hours, minutes, secs );
         return time;
     }
