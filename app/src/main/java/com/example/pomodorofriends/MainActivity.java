@@ -40,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putString("msg", msg);
         timerFragment.setArguments(args);
+
+        // Allow switching between fragments while keeping them alive
+        fragmentManager.beginTransaction()
+                .add(R.id.flContainer, basketFragment)
+                .add(R.id.flContainer, profileFragment)
+                .add(R.id.flContainer, timerFragment)
+                .add(R.id.flContainer, addFragment)
+                .hide(profileFragment)
+                .hide(timerFragment)
+                .hide(addFragment)
+                .commit();
+
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -60,7 +72,29 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                // Switch active fragment without killing previous one
+                if (fragment == basketFragment) {
+                    fragmentManager.beginTransaction()
+                            .hide(profileFragment)
+                            .hide(timerFragment)
+                            .hide(addFragment)
+                            .show(basketFragment)
+                            .commit();
+                } else if (fragment == profileFragment) {
+                    fragmentManager.beginTransaction()
+                            .hide(basketFragment)
+                            .hide(timerFragment)
+                            .hide(addFragment)
+                            .show(profileFragment)
+                            .commit();
+                } else if (fragment == timerFragment) {
+                    fragmentManager.beginTransaction()
+                            .hide(basketFragment)
+                            .hide(profileFragment)
+                            .hide(addFragment)
+                            .show(timerFragment)
+                            .commit();
+                }
                 return true;
             }
 
@@ -83,7 +117,12 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.action_add:
-                fragmentManager.beginTransaction().replace(R.id.flContainer, addFragment).commit();
+                fragmentManager.beginTransaction()
+                        .hide(profileFragment)
+                        .hide(timerFragment)
+                        .hide(basketFragment)
+                        .show(addFragment)
+                        .commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

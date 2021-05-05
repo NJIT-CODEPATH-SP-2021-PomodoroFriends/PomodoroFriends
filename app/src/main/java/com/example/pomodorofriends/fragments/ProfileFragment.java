@@ -2,6 +2,8 @@ package com.example.pomodorofriends.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.pomodorofriends.R;
+import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
@@ -37,9 +40,11 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ConstraintLayout profileLayout;
+    private TextView userFirstChar;
     private TextView thankYouText;
     private TextView userText;
+
+    private static final String thankYouMessage = "Thank you to Codepath for making this possible, and thank you to YOU for using our app.";
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -82,7 +87,20 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
-    private void getUser() {
-        //
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        userText = view.findViewById(R.id.userField);
+        thankYouText = view.findViewById(R.id.thankYouMessage);
+        userFirstChar = view.findViewById(R.id.tvUserFirstChar);
+
+        populatePage();
     }
+
+    private void populatePage() {
+        userText.setText(ParseUser.getCurrentUser().getUsername());
+        thankYouText.setText(thankYouMessage);
+        userFirstChar.setText("" + ParseUser.getCurrentUser().getUsername().charAt(0)); // It did not like trying to stick a char in there, so had to convert it to a string
+    }
+
 }
