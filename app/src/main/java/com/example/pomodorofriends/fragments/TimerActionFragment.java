@@ -35,6 +35,7 @@ public class TimerActionFragment extends Fragment {
     private FrameLayout flTimerAction;
 
     private int activityTime;
+    private int breakTime;
     private int period;
     private int current;
     private String caption;
@@ -56,17 +57,25 @@ public class TimerActionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityTime = 10*1000;
-        caption = "Finish Project!!";
-        period = 4;
-        current = period;
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        activityTime = 60*1000;
+        breakTime = 10*1000;
+        caption = "Basic Activity";
+        period = 4;
 
+        if( getArguments() != null){
+            activityTime =  getArguments().getInt("activityTime")*1000;
+            breakTime =  getArguments().getInt("breakTime")*1000;
+            caption =  getArguments().getString("caption");
+            period =  getArguments().getInt("period");
+        }
+        current = period;
         return inflater.inflate(R.layout.fragment_timer_action, container, false);
     }
 
@@ -74,7 +83,6 @@ public class TimerActionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //String msg = getArguments().getString("msg",null);
         //Log.i(TAG, msg);
-
 
         tvTimer = view.findViewById(R.id.tvTimer);
         tvTimerCaption = view.findViewById(R.id.tvTimerCaption);
@@ -85,6 +93,8 @@ public class TimerActionFragment extends Fragment {
 
     }
     private void startActivity(){
+        Log.i(TAG, String.valueOf(activityTime));
+
         tvTimerCaption.setText(caption);
         tvTimerPeriod.setText(current+"/"+period);
         Drawable flDrawable = flTimerAction.getBackground();
@@ -107,6 +117,7 @@ public class TimerActionFragment extends Fragment {
             }
         };
         countDownActivity.start();
+        //countDownActivity.cancel();
     }
 
 
@@ -118,7 +129,7 @@ public class TimerActionFragment extends Fragment {
         DrawableCompat.setTint(flDrawable, getResources().getColor(R.color.green_400));
         flTimerAction.setBackground(flDrawable);
 
-        countDownBreak = new CountDownTimer(activityTime, 1000) {
+        countDownBreak = new CountDownTimer(breakTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 String activityTimeFormat = Timer.format(millisUntilFinished/1000);
@@ -136,6 +147,9 @@ public class TimerActionFragment extends Fragment {
             }
         };
         countDownBreak.start();
+        //countDownActivity.cancel();
+
     }
+
 
 }
