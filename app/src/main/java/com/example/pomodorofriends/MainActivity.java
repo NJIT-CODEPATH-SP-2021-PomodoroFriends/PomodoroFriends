@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity{
     final Fragment addFragment = new AddFragment();
     final Fragment basketFragment = new BasketFragment();
     final Fragment profileFragment = new ProfileFragment();
-    final Fragment timerFragment = new TimerActionFragment();
+    Fragment timerFragment = new TimerActionFragment();
 
     private Fragment currentFragment;
-    private Bundle timerArgs;
+
 
     private boolean timerSelected = false;
 
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        timerArgs = new Bundle();
         // Allow switching between fragments while keeping them alive
 
 
@@ -117,16 +116,21 @@ public class MainActivity extends AppCompatActivity{
         }
         return false;
     }
+
+
     public void setCurrentTimer(Timer timer) {
+        Bundle timerArgs = new Bundle();
         timerArgs.putInt("activityTime", timer.getActivityTimer());
         timerArgs.putInt("breakTime", timer.getBreakTimer());
         timerArgs.putInt("period", timer.getPeriod());
         timerArgs.putString("caption", timer.getCaption());
 
+        timerFragment = new TimerActionFragment();
+
         timerFragment.setArguments(timerArgs);
 
         loadFragment(timerFragment);
-
+        bottomNavigationView.setSelectedItemId(R.id.action_current);
         timerSelected = true;
     }
 }

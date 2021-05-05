@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class TimerActionFragment extends Fragment {
     private TextView tvTimerCaption;
     private TextView tvTimerPeriod;
     private FrameLayout flTimerAction;
+    private Button btnTimerStart;
 
     private int activityTime;
     private int breakTime;
@@ -42,6 +44,7 @@ public class TimerActionFragment extends Fragment {
     private CountDownTimer countDownActivity;
     private CountDownTimer countDownBreak;
 
+    private boolean started = false;
     public TimerActionFragment() {
         // Required empty public constructor
     }
@@ -56,14 +59,6 @@ public class TimerActionFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         activityTime = 60*1000;
         breakTime = 10*1000;
         caption = "Basic Activity";
@@ -76,6 +71,15 @@ public class TimerActionFragment extends Fragment {
             period =  getArguments().getInt("period");
         }
         current = period;
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_timer_action, container, false);
     }
 
@@ -88,10 +92,27 @@ public class TimerActionFragment extends Fragment {
         tvTimerCaption = view.findViewById(R.id.tvTimerCaption);
         tvTimerPeriod = view.findViewById(R.id.tvTimerPeriod);
         flTimerAction = view.findViewById(R.id.flTimerAction);
+        btnTimerStart = view.findViewById(R.id.btnTimerStart);
+        tvTimerCaption.setText(caption);
+        tvTimerPeriod.setText(current+"/"+period);
+        String activityTimeFormat = Timer.format(activityTime/1000);
+        //Log.i(TAG, activityTimeFormat);
+        tvTimer.setText(activityTimeFormat);
+        if(started){
+            btnTimerStart.setVisibility(View.INVISIBLE);
+        }
+        btnTimerStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity();
+                started = true;
+                btnTimerStart.setVisibility(View.INVISIBLE);
+            }
+        });
 
-        startActivity();
 
     }
+
     private void startActivity(){
         Log.i(TAG, String.valueOf(activityTime));
 
@@ -141,14 +162,40 @@ public class TimerActionFragment extends Fragment {
             public void onFinish() {
                 Log.i(TAG, "Finished timer");
                 current--;
-                if(current == 0)
+                if(current == 0) {
+                    tvTimerPeriod.setText(current+"/"+period);
+                    tvTimerCaption.setText("You're finished!!");
+                    Drawable flDrawable = flTimerAction.getBackground();
+                    flDrawable = DrawableCompat.wrap(flDrawable);
+                    //the color is a direct color int and not a color resource
+                    DrawableCompat.setTint(flDrawable, getResources().getColor(R.color.red_500));
+                    flTimerAction.setBackground(flDrawable);
+                    btnTimerStart.setText("Reset");
+                    btnTimerStart.setVisibility(View.VISIBLE);
+                    btnTimerStart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            reset();
+                            btnTimerStart.setVisibility(View.INVISIBLE);
+                        }
+                    });
                     return;
+                }
                 startActivity();
             }
         };
         countDownBreak.start();
         //countDownActivity.cancel();
+    }
 
+    private void reset(){
+        current = period;
+        tvTimerCaption.setText(caption);
+        tvTimerPeriod.setText(current+"/"+period);
+        String activityTimeFormat = Timer.format(activityTime/1000);
+        //Log.i(TAG, activityTimeFormat);
+        tvTimer.setText(activityTimeFormat);
+        startActivity();
     }
 
 
