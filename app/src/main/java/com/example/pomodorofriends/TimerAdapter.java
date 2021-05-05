@@ -1,6 +1,7 @@
 package com.example.pomodorofriends;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> {
 
+    private static final String TAG = "TimerAdapter";
+    private OnPlayListener onPlayListener;
     private Context context;
     private List<Timer> timers;
 
-    public TimerAdapter(Context context, List<Timer> timers){
+    public TimerAdapter(Context context, List<Timer> timers, OnPlayListener listener){
         this.context = context;
         this.timers = timers;
+        this.onPlayListener = listener;
     }
 
     @NonNull
@@ -34,6 +39,12 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Timer timer = timers.get(position);
         holder.bind(timer);
+        holder.chPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPlayListener.onPlayClick(timer);
+            }
+        });
     }
 
     @Override
@@ -60,6 +71,8 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
         TextView tvPeriod;
         Chip chActivity;
         Chip chBreak;
+        Chip chSave;
+        Chip chPlay;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +82,10 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
             tvPeriod = itemView.findViewById(R.id.tvPeriod);
             chActivity = itemView.findViewById(R.id.chActivity);
             chBreak = itemView.findViewById(R.id.chBreak);
+            chSave = itemView.findViewById(R.id.chSave);
+            chPlay = itemView.findViewById(R.id.chPlay);
+
+
         }
 
         public void bind(Timer timer) {
@@ -77,6 +94,17 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.ViewHolder> 
             tvPeriod.setText(timer.getPeriod()+" reps");
             chActivity.setText(Timer.format(timer.getActivityTimer()));
             chBreak.setText(Timer.format(timer.getBreakTimer()));
+
+            if(timer.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+                chSave.setVisibility(View.INVISIBLE);
+                chPlay.setVisibility(View.VISIBLE);
+            } else {
+                chSave.setVisibility(View.VISIBLE);
+                chPlay.setVisibility(View.INVISIBLE);
+            }
+
+
+
         }
     }
 }

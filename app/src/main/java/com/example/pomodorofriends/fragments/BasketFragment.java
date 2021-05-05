@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.pomodorofriends.MainActivity;
+import com.example.pomodorofriends.OnPlayListener;
 import com.example.pomodorofriends.R;
 import com.example.pomodorofriends.Timer;
 import com.example.pomodorofriends.TimerAdapter;
@@ -31,6 +33,7 @@ public class BasketFragment extends Fragment {
     protected List<Timer> allTimers;
     protected TimerAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
+    private OnPlayListener listener;
 
     public BasketFragment() {
         // Required empty public constructor
@@ -52,7 +55,14 @@ public class BasketFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvPosts = view.findViewById(R.id.rvTimers);
         allTimers = new ArrayList<Timer>();
-        adapter = new TimerAdapter(getContext(), allTimers);
+        listener = new OnPlayListener(){
+            @Override
+            public void onPlayClick(Timer timer) {
+                //Log.i(TAG, timer.getCaption());
+                ((MainActivity)getActivity()).setCurrentTimer(timer);
+            }
+        };
+        adapter = new TimerAdapter(getContext(), allTimers, listener);
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -90,4 +100,6 @@ public class BasketFragment extends Fragment {
             }
         });
     }
+
+
 }

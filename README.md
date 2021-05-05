@@ -50,6 +50,9 @@ Allow users to define and execute Pomodoro timers. Timers are broadcast into a f
 **App Walkthrough UNIT 12**
 ![WALKTHROUGH3](https://github.com/NJIT-CODEPATH-SP-2021-PomodoroFriends/PomodoroFriends/blob/main/Images/demo2gif.gif)
 
+**App Walkthrough UNIT 13/14**
+![WALKTHROUGH4](https://media.giphy.com/media/sbCFvNoLrZIbpKwPQm/giphy.gif)
+
 ### 2. Screen Archetypes
 
 * Login

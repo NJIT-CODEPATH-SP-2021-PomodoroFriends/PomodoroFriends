@@ -4,12 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.pomodorofriends.fragments.AddFragment;
 import com.example.pomodorofriends.fragments.BasketFragment;
@@ -18,8 +19,9 @@ import com.example.pomodorofriends.fragments.TimerActionFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
+    private static final String TAG = "MainActivity";
     BottomNavigationView bottomNavigationView;
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -29,28 +31,19 @@ public class MainActivity extends AppCompatActivity {
     final Fragment profileFragment = new ProfileFragment();
     final Fragment timerFragment = new TimerActionFragment();
 
-    private Timer selectedTimer;
-    private String msg = "From main to you";
+    private Fragment currentFragment;
+    private Bundle timerArgs;
+
+    private boolean timerSelected = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bundle args = new Bundle();
-        args.putString("msg", msg);
-        timerFragment.setArguments(args);
-
+        timerArgs = new Bundle();
         // Allow switching between fragments while keeping them alive
-        fragmentManager.beginTransaction()
-                .add(R.id.flContainer, basketFragment)
-                .add(R.id.flContainer, profileFragment)
-                .add(R.id.flContainer, timerFragment)
-                .add(R.id.flContainer, addFragment)
-                .hide(profileFragment)
-                .hide(timerFragment)
-                .hide(addFragment)
-                .commit();
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,36 +58,20 @@ public class MainActivity extends AppCompatActivity {
                         fragment = profileFragment;
                         break;
                     case R.id.action_current:
-                        fragment = timerFragment;
-                        break;
+                        if(timerSelected) {
+                            fragment = timerFragment;
+                            break;
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Select Timer", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+
                     default:
                         fragment = basketFragment;
                         break;
                 }
 
-                // Switch active fragment without killing previous one
-                if (fragment == basketFragment) {
-                    fragmentManager.beginTransaction()
-                            .hide(profileFragment)
-                            .hide(timerFragment)
-                            .hide(addFragment)
-                            .show(basketFragment)
-                            .commit();
-                } else if (fragment == profileFragment) {
-                    fragmentManager.beginTransaction()
-                            .hide(basketFragment)
-                            .hide(timerFragment)
-                            .hide(addFragment)
-                            .show(profileFragment)
-                            .commit();
-                } else if (fragment == timerFragment) {
-                    fragmentManager.beginTransaction()
-                            .hide(basketFragment)
-                            .hide(profileFragment)
-                            .hide(addFragment)
-                            .show(timerFragment)
-                            .commit();
-                }
+                loadFragment(fragment);
                 return true;
             }
 
@@ -117,12 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 return true;
             case R.id.action_add:
-                fragmentManager.beginTransaction()
-                        .hide(profileFragment)
-                        .hide(timerFragment)
-                        .hide(basketFragment)
-                        .show(addFragment)
-                        .commit();
+                loadFragment(addFragment);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -133,5 +105,28 @@ public class MainActivity extends AppCompatActivity {
         ParseUser.logOut();
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
+    }
+
+    private boolean loadFragment (Fragment fr) {
+        if (fr != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flContainer, fr)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+    public void setCurrentTimer(Timer timer) {
+        timerArgs.putInt("activityTime", timer.getActivityTimer());
+        timerArgs.putInt("breakTime", timer.getBreakTimer());
+        timerArgs.putInt("period", timer.getPeriod());
+        timerArgs.putString("caption", timer.getCaption());
+
+        timerFragment.setArguments(timerArgs);
+
+        loadFragment(timerFragment);
+
+        timerSelected = true;
     }
 }
